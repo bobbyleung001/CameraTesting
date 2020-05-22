@@ -128,7 +128,7 @@ async function init(constraints) {
 document.querySelector('button#start').addEventListener('click', async () => {
     const constraints = {
         video: {
-            width: 1280, height: 720, frameRate: 30
+            width: 480, height: 360, frameRate: 30
         }
     };
     console.log('Using media constraints:', constraints);
