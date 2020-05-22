@@ -2,6 +2,14 @@
 <head>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<style>
+	div{
+		text-align: center;
+	}
+	#log{
+		font-size: large;
+	}
+</style>
 </head>
 <body>
 <div class="panel-body">
@@ -109,7 +117,12 @@ $(document).ready(function () {
 		}).then(stream => {
 			preview.srcObject = stream;
 			downloadButton.href = stream;
-			preview.captureStream = preview.captureStream || preview.mozCaptureStream;
+			try{
+				preview.captureStream = preview.captureStream
+			}catch(e){
+				preview.captureStream = preview.mozCaptureStream
+			}
+			//preview.captureStream = preview.captureStream || preview.mozCaptureStream;
 			return new Promise(resolve => preview.onplaying = resolve);
 		}).then(() => startRecording(preview.captureStream(), recordingTimeMS))
 			.then(recordedChunks => {
