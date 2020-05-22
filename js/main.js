@@ -124,7 +124,6 @@ async function init(constraints) {
 }
 
 document.querySelector('button#start').addEventListener('click', async () => {
-  const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
   const constraints = {
     video: {
       width: 1280, height: 720
