@@ -11,7 +11,7 @@
 
 	<div class="col-md-3">
 		<h2>Live Preview</h2>
-		<video id="preview" controls width="260" height="150" autoplay muted style="border: solid 2px green; background-color: black"></video>
+		<video id="preview" controls width="80%" height="350" autoplay muted style="border: solid 2px green; background-color: black"></video>
 		<br />
 		&nbsp;&nbsp;   &nbsp;&nbsp;
 				<div id="startButton"  class="button btn btn-success btn-sm">&nbsp; &nbsp; &nbsp;Start  &nbsp; &nbsp; &nbsp; </div>
@@ -30,7 +30,7 @@
 	</div>
 	<div class="col-md-4">
 		<h2>Recorded Video</h2>
-		<video id="recording" width="260" height="150" controls style="border: solid 2px green"></video>
+		<video id="recording" width="80%" height="350" controls style="border: solid 2px green"></video>
 		<br />
 	   
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 				   $('#startButton').attr('disabled', false);
 					$('#stopButton').attr('disabled', true);
-					//$('#downloadButton').attr('disabled', false);
+					
 				//$('#<%=btnsaven.ClientID%>').attr('disabled', false);
 
 			  
@@ -144,6 +144,7 @@ $(document).ready(function () {
 				log("Successfully recorded " + recordedBlob.size + " bytes of " +
 					recordedBlob.type + " media.");
 				$('#downloadButton').attr('disabled', false);
+
 
 			})
 			.catch(log);
