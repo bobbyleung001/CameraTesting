@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 				   $('#startButton').attr('disabled', false);
 					$('#stopButton').attr('disabled', true);
-					$('#downloadButton').attr('disabled', false);
+					//$('#downloadButton').attr('disabled', false);
 				//$('#<%=btnsaven.ClientID%>').attr('disabled', false);
 
 			  
@@ -143,7 +143,7 @@ $(document).ready(function () {
 
 				log("Successfully recorded " + recordedBlob.size + " bytes of " +
 					recordedBlob.type + " media.");
-
+				$('#downloadButton').attr('disabled', false);
 
 			})
 			.catch(log);
