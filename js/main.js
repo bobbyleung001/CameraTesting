@@ -32,7 +32,8 @@ recordButton.addEventListener('click', () => {
 
 const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
-    const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+    //const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+    const superBuffer = new Blob(recordedBlobs, { type: 'video/mp4' });
     recordedVideo.src = null;
     recordedVideo.srcObject = null;
     recordedVideo.src = window.URL.createObjectURL(superBuffer);
@@ -42,12 +43,14 @@ playButton.addEventListener('click', () => {
 
 const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
-    const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+    //const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+    const blob = new Blob(recordedBlobs, { type: 'video/mp4' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.webm';
+    //a.download = 'test.webm';
+    a.download = 'test.mp4';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => {
@@ -65,6 +68,7 @@ function handleDataAvailable(event) {
 
 function startRecording() {
     recordedBlobs = [];
+    //var options = { mimeType: 'video/mp4' };
     var options = { mimeType: 'video/mp4' };
     //let options = { mimeType: 'video/webm;codecs=vp9,opus' };
     //if (!MediaRecorder.isTypeSupported(options.mimeType)) {
@@ -83,7 +87,8 @@ function startRecording() {
     try {
         //var mediaStream = document.getElementById('gum').captureStream(25);
         //window.stream
-        mediaRecorder = new MediaRecorder(window.stream, options);
+        //mediaRecorder = new MediaRecorder(window.stream, options);
+        mediaRecorder = stream.record();
     } catch (e) {
         console.error('Exception while creating MediaRecorder:', e);
         errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
@@ -98,8 +103,8 @@ function startRecording() {
         console.log('Recorder stopped: ', event);
         console.log('Recorded Blobs: ', recordedBlobs);
     };
-    mediaRecorder.ondataavailable = handleDataAvailable;
-    mediaRecorder.start();
+    //mediaRecorder.ondataavailable = handleDataAvailable;
+    //mediaRecorder.start();
     console.log('MediaRecorder started', mediaRecorder);
 }
 
