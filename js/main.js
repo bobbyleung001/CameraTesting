@@ -65,19 +65,20 @@ function handleDataAvailable(event) {
 
 function startRecording() {
     recordedBlobs = [];
-    let options = { mimeType: 'video/webm;codecs=vp9,opus' };
-    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-        console.error(`${options.mimeType} is not supported`);
-        options = { mimeType: 'video/webm;codecs=vp8,opus' };
-        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-            console.error(`${options.mimeType} is not supported`);
-            options = { mimeType: 'video/webm' };
-            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-                console.error(`${options.mimeType} is not supported`);
-                options = { mimeType: '' };
-            }
-        }
-    }
+    var options = { mimeType: 'video/mp4' };
+    //let options = { mimeType: 'video/webm;codecs=vp9,opus' };
+    //if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    //    console.error(`${options.mimeType} is not supported`);
+    //    options = { mimeType: 'video/webm;codecs=vp8,opus' };
+    //    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    //        console.error(`${options.mimeType} is not supported`);
+    //        options = { mimeType: 'video/webm' };
+    //        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    //            console.error(`${options.mimeType} is not supported`);
+    //            options = { mimeType: '' };
+    //        }
+    //    }
+    //}
 
     try {
         var mediaStream = document.getElementById('gum').captureStream(25);
