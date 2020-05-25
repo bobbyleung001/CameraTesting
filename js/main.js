@@ -81,9 +81,9 @@ function startRecording() {
     //}
 
     try {
-        var mediaStream = document.getElementById('gum').captureStream(25);
+        //var mediaStream = document.getElementById('gum').captureStream(25);
         //window.stream
-        mediaRecorder = new MediaRecorder(mediaStream, options);
+        mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e) {
         console.error('Exception while creating MediaRecorder:', e);
         errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
