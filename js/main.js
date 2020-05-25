@@ -88,7 +88,8 @@ function startRecording() {
         //var mediaStream = document.getElementById('gum').captureStream(25);
         //window.stream
         //mediaRecorder = new MediaRecorder(window.stream, options);
-        mediaRecorder = stream.record();
+        mediaRecorder = new MediaRecorder(window.stream);
+        //mediaRecorder = stream.record();
     } catch (e) {
         console.error('Exception while creating MediaRecorder:', e);
         errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
@@ -103,8 +104,8 @@ function startRecording() {
         console.log('Recorder stopped: ', event);
         console.log('Recorded Blobs: ', recordedBlobs);
     };
-    //mediaRecorder.ondataavailable = handleDataAvailable;
-    //mediaRecorder.start();
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.start();
     console.log('MediaRecorder started', mediaRecorder);
 }
 
