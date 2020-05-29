@@ -17,7 +17,7 @@ Known issue(s): Video orientation in iOS is not correct when the phone is portra
 
 
 # Enable MediaRecorder in iOS device
-<img src="https://bobbyleung001.github.io/CameraTesting/qr/iosMediaRecorder.png" width="200">
+<img src="https://bobbyleung001.github.io/CameraTesting/qr/iosMediaRecorder.png" width="800">
 
 
 # index.html
