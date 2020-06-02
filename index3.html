@@ -11,7 +11,7 @@
         <canvas id="videoCanvas"></canvas>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
-            window.onOpenCVReady = function(){
+            async function onOpenCVReady(){
                 //OpenCV is now ready
                 const stream = await navigator.mediaDevices.getUserMedia();
                 window.stream = stream;
