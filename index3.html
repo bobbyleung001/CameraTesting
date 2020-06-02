@@ -22,34 +22,38 @@
             };
             async function onOpenCVReady(){
                 //OpenCV is now ready
-                console.log("OpenCV Ready!");
-                //try{
-                    //Start Streaming with Camera
-                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                    window.stream = stream;
-                    const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
-                    videoStreamDisplayElement.srcObject = stream;
-                    
-                    //Load the stream to the canvas after OpenCV processed
-                    let canvasFrame = document.getElementById("videoCanvas");
-                    let context = canvasFrame.getContext("2d");
-                    let src = new cv.Mat(height, width, cv.CV_8UC4);
-                    let dst = new cv.Mat(height, width, cv.CV_8UC1);
-   
-                    function processVideo(){
-                        let begin = Date.now();
-                        context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
-                        src.data.set(context.getImageData(0, 0, width, height).data);
-                        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-                        cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
-                        // schedule next one.
-                        let delay = 1000/FPS - (Date.now() - begin);
-                        setTimeout(processVideo, delay);
-                    }
-                    setTimeout(processVideo, 0);
-                //}catch(e){
-                //    document.getElementById("errorLog").innerText=e.message;
-                //}
+                cv['onRuntimeInitialized']=()=>{
+                    //OpenCV really ready
+                    console.log("OpenCV Ready!");
+                    //try{
+                        //Start Streaming with Camera
+                        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                        window.stream = stream;
+                        const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
+                        videoStreamDisplayElement.srcObject = stream;
+                        
+                        //Load the stream to the canvas after OpenCV processed
+                        let canvasFrame = document.getElementById("videoCanvas");
+                        let context = canvasFrame.getContext("2d");
+                        let src = new cv.Mat(height, width, cv.CV_8UC4);
+                        let dst = new cv.Mat(height, width, cv.CV_8UC1);
+    
+                        function processVideo(){
+                            let begin = Date.now();
+                            context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
+                            src.data.set(context.getImageData(0, 0, width, height).data);
+                            cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+                            cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
+                            // schedule next one.
+                            let delay = 1000/FPS - (Date.now() - begin);
+                            setTimeout(processVideo, delay);
+                        }
+                        setTimeout(processVideo, 0);
+                    //}catch(e){
+                    //    document.getElementById("errorLog").innerText=e.message;
+                    //}
+                };
+                
             }
         </script>
     </body>
