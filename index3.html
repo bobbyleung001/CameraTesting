@@ -22,7 +22,7 @@
                 //try{
                     const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     window.stream = stream;
-                    const videoStreamDisplayElement = document.getElementById("videoStreamDisaply");
+                    const videoStreamDisplayElement = document.querySelector("video#videoStreamDisaply");
                     videoStreamDisplayElement.srcObject = stream;
 
                     let canvasFrame = document.getElementById("videoCanvas");
