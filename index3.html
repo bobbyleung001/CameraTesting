@@ -48,7 +48,7 @@
                         function processVideo(){
                             let begin = Date.now();
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
-
+                            dst = new cv.Mat(height, width, cv.CV_8UC1);
                             //Get the frame from the video element, then process it
                             src.data.set(context.getImageData(0, 0, width, height).data);
                             cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
