@@ -12,10 +12,15 @@
         <span id="errorLog"></span>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
+            const constraints = {
+                video: {
+                    width: 480, height: 360, frameRate: 30
+                }
+            };
             async function onOpenCVReady(){
                 //OpenCV is now ready
-                try{
-                    const stream = await navigator.mediaDevices.getUserMedia();
+                //try{
+                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     window.stream = stream;
                     const videoStreamDisplayElement = document.getElementById("videoStreamDisaply");
                     videoStreamDisplayElement.srcObject = stream;
@@ -37,9 +42,9 @@
                         setTimeout(processVideo, delay);
                     }
                     setTimeout(processVideo, 0);
-                }catch(e){
-                    document.getElementById("errorLog").innerText=e.message;
-                }
+                //}catch(e){
+                //    document.getElementById("errorLog").innerText=e.message;
+                //}
             }
         </script>
     </body>
