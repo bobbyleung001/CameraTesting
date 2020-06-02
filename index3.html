@@ -12,9 +12,12 @@
         <span id="errorLog"></span>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
+            const height = 360;
+            const width = 480;
+            const FPS = 30;
             const constraints = {
                 video: {
-                    width: 480, height: 360, frameRate: 30
+                    width: width, height: height, frameRate: FPS
                 }
             };
             async function onOpenCVReady(){
@@ -29,8 +32,7 @@
                     let context = canvasFrame.getContext("2d");
                     let src = new cv.Mat(height, width, cv.CV_8UC4);
                     let dst = new cv.Mat(height, width, cv.CV_8UC1);
-
-                    const FPS = 30;
+   
                     function processVideo(){
                         let begin = Date.now();
                         context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
