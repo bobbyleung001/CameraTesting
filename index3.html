@@ -57,7 +57,7 @@
                             cv.Canny(src, dst, 35, 125, 3, false);
 
                             //Try to get the "Card-like" object and bound it with a rectangle
-                            var cnts = cv.findCountours(dst.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE);
+                            var cnts = cv.findContours(dst, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
                             let cnt = cnts[0];
                             let rect = cv.boundingRect(cnt);
                             let contoursColor = new cv.Scalar(255, 255, 255);
