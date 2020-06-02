@@ -59,6 +59,8 @@
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
 
+                            //Delete the frame to clear memory
+                            dst.delete();
                             //Schedule next one. Repeat it once on every frame, make it looks like a video
                             let delay = 1000/FPS - (Date.now() - begin);
                             setTimeout(processVideo, delay);
