@@ -9,32 +9,37 @@
     <body>
         <video id="videoStreamDisplay" playsinline autoplay muted></video>
         <canvas id="videoCanvas"></canvas>
+        <span id="errorLog"></span>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
             async function onOpenCVReady(){
                 //OpenCV is now ready
-                const stream = await navigator.mediaDevices.getUserMedia();
-                window.stream = stream;
-                const videoStreamDisplayElement = document.getElementById("videoStreamDisaply");
-                videoStreamDisplayElement.srcObject = stream;
+                try{
+                    const stream = await navigator.mediaDevices.getUserMedia();
+                    window.stream = stream;
+                    const videoStreamDisplayElement = document.getElementById("videoStreamDisaply");
+                    videoStreamDisplayElement.srcObject = stream;
 
-                let canvasFrame = document.getElementById("videoCanvas");
-                let context = canvasFrame.getContext("2d");
-                let src = new cv.Mat(height, width, cv.CV_8UC4);
-                let dst = new cv.Mat(height, width, cv.CV_8UC1);
+                    let canvasFrame = document.getElementById("videoCanvas");
+                    let context = canvasFrame.getContext("2d");
+                    let src = new cv.Mat(height, width, cv.CV_8UC4);
+                    let dst = new cv.Mat(height, width, cv.CV_8UC1);
 
-                const FPS = 30;
-                function processVideo(){
-                    let begin = Date.now();
-                    context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
-                    src.data.set(context.getImageData(0, 0, width, height).data);
-                    cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-                    cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
-                    // schedule next one.
-                    let delay = 1000/FPS - (Date.now() - begin);
-                    setTimeout(processVideo, delay);
+                    const FPS = 30;
+                    function processVideo(){
+                        let begin = Date.now();
+                        context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
+                        src.data.set(context.getImageData(0, 0, width, height).data);
+                        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+                        cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
+                        // schedule next one.
+                        let delay = 1000/FPS - (Date.now() - begin);
+                        setTimeout(processVideo, delay);
+                    }
+                    setTimeout(processVideo, 0);
+                }catch(e){
+                    document.getElementById("errorLog").innerText=e.message;
                 }
-                setTimeout(processVideo, 0);
             }
         </script>
     </body>
