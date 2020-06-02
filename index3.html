@@ -42,10 +42,18 @@
                         function processVideo(){
                             let begin = Date.now();
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
+
+                            //Get the frame from the video element, then process it
                             src.data.set(context.getImageData(0, 0, width, height).data);
                             cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-                            cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
-                            // schedule next one.
+
+                            //Edge Detection?
+                            cv.Canny(src, dst, 50, 100, 3, false);
+
+                            //Show the processed frame to the canvas
+                            cv.imshow("videoCanvas", dst); 
+
+                            //Schedule next one. Repeat it once on every frame, make it looks like a video
                             let delay = 1000/FPS - (Date.now() - begin);
                             setTimeout(processVideo, delay);
                         }
