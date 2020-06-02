@@ -22,12 +22,15 @@
             };
             async function onOpenCVReady(){
                 //OpenCV is now ready
+                console.log("OpenCV Ready!");
                 //try{
+                    //Start Streaming with Camera
                     const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     window.stream = stream;
                     const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
                     videoStreamDisplayElement.srcObject = stream;
-
+                    
+                    //Load the stream to the canvas after OpenCV processed
                     let canvasFrame = document.getElementById("videoCanvas");
                     let context = canvasFrame.getContext("2d");
                     let src = new cv.Mat(height, width, cv.CV_8UC4);
