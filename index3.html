@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=11" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
+        <title>OpenCV</title>
+    </head>
+    <body>
+        <video id="videoStreamDisplay" playsinline autoplay muted></video>
+        <canvas id="videoCanvas"></canvas>
+        <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
+        <script>
+            window.onOpenCVReady = function(){
+                //OpenCV is now ready
+                const stream = await navigator.mediaDevices.getUserMedia();
+                window.stream = stream;
+                const videoStreamDisplayElement = document.getElementById("videoStreamDisaply");
+                videoStreamDisplayElement.srcObject = stream;
+
+                let canvasFrame = document.getElementById("videoCanvas");
+                let context = canvasFrame.getContext("2d");
+                let src = new cv.Mat(height, width, cv.CV_8UC4);
+                let dst = new cv.Mat(height, width, cv.CV_8UC1);
+
+                const FPS = 30;
+                function processVideo(){
+                    let begin = Date.now();
+                    context.drawImage(videoStreamDisplayElement, 0, 0, width, height);
+                    src.data.set(context.getImageData(0, 0, width, height).data);
+                    cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+                    cv.imshow("videoCanvas", dst); // canvasOutput is the id of another <canvas>;
+                    // schedule next one.
+                    let delay = 1000/FPS - (Date.now() - begin);
+                    setTimeout(processVideo, delay);
+                }
+                setTimeout(processVideo, 0);
+            }
+        </script>
+    </body>
+</html>
