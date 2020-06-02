@@ -5,10 +5,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=11" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
         <title>OpenCV</title>
+        <style>
+            .videoDisplayClass{
+                transform: rotateY(180deg);
+                width: 48vw;
+            }
+        </style>
     </head>
     <body>
-        <video id="videoStreamDisplay" playsinline autoplay muted></video>
-        <canvas id="videoCanvas"></canvas>
+        <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass"></video>
+        <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
         <span id="errorLog"></span>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
