@@ -14,7 +14,7 @@
         </style>
     </head>
     <body>
-        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div id="loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass"></video>
         <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
         <span id="errorLog"></span>
@@ -40,7 +40,7 @@
                     console.log("OpenCV Ready!");
                     //try{
                         
-                        document.getElementById("lds-roller").style.display = "none";
+                        document.getElementById("loader").style.display = "none";
                         //Load the stream to the canvas after OpenCV processed
                         let canvasFrame = document.getElementById("videoCanvas");
                         let context = canvasFrame.getContext("2d");
