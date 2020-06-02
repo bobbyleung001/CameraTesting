@@ -11,10 +11,14 @@
                 transform: rotateY(180deg);
                 width: 48vw;
             }
+            .loaderWrapper{
+                display: block;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
-        <div id="loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class="loaderWrapper"><div id="loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
         <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass"></video>
         <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
         <span id="errorLog"></span>
