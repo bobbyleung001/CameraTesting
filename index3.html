@@ -51,8 +51,8 @@
 
     
                         function processVideo(){
-                            let src = new cv.Mat(height, width, cv.CV_8UC4);
-                            let dst = new cv.Mat(height, width, cv.CV_8UC1);
+                            let src = new cv.Mat(height, width, cv.CV_8UC3);
+                            let dst = new cv.Mat(height, width, cv.CV_8UC3);
                             
                             let begin = Date.now();
                             
@@ -63,8 +63,8 @@
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
-                            //Edge Detection 
-                            cv.Canny(src, src, 75, 200, 3, false);
+                            //Edge Detection ori:75, 200
+                            cv.Canny(src, src, 75, 250, 3, false);
 
                             //Try to get the "Card-like" object and bound it with a rectangle
                             // let contours = new cv.MatVector();
@@ -96,22 +96,32 @@
                                 var tmp = new cv.Mat();
                                 var cnt = cnts.get(i);
                                 var peri = cv.arcLength(cnt, true);
-                                cv.approxPolyDP(cnt, tmp, 0.005 * peri, true);
-                                if (tmp.size() == 4){
-                                    cntsPoly.push_back(tmp);
-                                }     
+                                cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
+                                cntsPoly.push_back(tmp);                                   
                                 tmp.delete();
                                 cnt.delete();                  
                             }
+                            let max = 0;
+                            let maxCnts = new cv.MatVector();
+                            for (var i = 0; i < cnts.size(); i++){
+                                var area = cv.contourArea(poly.get(i), false);
+                                if (area > max){
+                                    max = area;
+                                    maxCnt = poly.get(i);
+                                }  
+                            }
+                            maxCnts.push_back(maxCnt);
                             for (var i = 0; i < cnts.size(); i++){
                                 var color = new cv.Scalar(0, 255, 255);
-                                cv.drawContours(dst, cntsPoly, i, color, 2, 8, hierarchy, 100);  
+                                cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
                             }
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
 
                             //Delete the frame/var to clear memory
+                            maxCnts.delete();
+                            maxCnt.delete();
                             dst.delete();
                             src.delete();
                             cnts.delete(); 
