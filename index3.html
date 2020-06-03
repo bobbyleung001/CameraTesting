@@ -99,7 +99,8 @@
                                 tmp.delete();                  
                             }
                             for (var i = 0; i < cnts.size(); i++){
-                                cv.drawContours(dst, cntsPoly, i, cv.Scalar(0, 255, 255), 2, 8, hierarchy, 100);  
+                                let color = new cv.Scalar(0, 255, 255);
+                                cv.drawContours(dst, cntsPoly, i, color, 2, 8, hierarchy, 100);  
                             }
                             console.log(cnts.get(0));
                             //Show the processed frame to the canvas
