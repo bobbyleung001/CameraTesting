@@ -52,7 +52,7 @@
     
                         function processVideo(){
                             let src = new cv.Mat(height, width, cv.CV_8UC3);
-                            let dst = new cv.Mat(height, width, cv.CV_8UC1);
+                            let dst = new cv.Mat(height, width, cv.CV_8UC3);
                             
                             let begin = Date.now();
                             
@@ -65,63 +65,46 @@
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
                             cv.Canny(src, src, 75, 250, 3, false);
-
-                            //Try to get the "Card-like" object and bound it with a rectangle
-                            // let contours = new cv.MatVector();
-                            // let hierarchy = new cv.Mat();
-                            // cv.findContours(src, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            // contours = contours.sort(function (a,b){
-                            //     return a
-                            // })
-                            // let cnt = contours.get(0);
-                            // //var cnts = cv.findContours(dst, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            // //let cnt = cnts[0];
-                            // let rect = cv.boundingRect(cnt);
-                            // let contoursColor = new cv.Scalar(255, 255, 255);
-                            // let rectangleColor = new cv.Scalar(255, 0, 0);
-                            // cv.drawContours(dst, contours, 0, contoursColor, 1, 8, hierarchy, 100);
-                            // let point1 = new cv.Point(rect.x, rect.y);
-                            // let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
-                            // cv.rectangle(dst, point1, point2, rectangleColor, 2, cv.LINE_AA, 0); 
+                            
                             let cnts = new cv.MatVector();
                             let cntsPoly = new cv.MatVector();
                             let hierarchy = new cv.Mat();
-                            cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            // cnts = cnts.sort(function(a,b){
-                            //     return a.contourArea - b.contourArea;
-                            // });
+                            // cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            // // cnts = cnts.sort(function(a,b){
+                            // //     return a.contourArea - b.contourArea;
+                            // // });
                             
-                            for (var i = 0; i < cnts.size(); i++)
-                            {
-                                var tmp = new cv.Mat();
-                                var cnt = cnts.get(i);
-                                var peri = cv.arcLength(cnt, true);
-                                cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
-                                cntsPoly.push_back(tmp);                                   
-                                tmp.delete();
-                                cnt.delete();                  
-                            }
-                            let max = 0;
-                            let maxCnts = new cv.MatVector();
-                            for (var i = 0; i < cnts.size(); i++){
-                                var area = cv.contourArea(poly.get(i), false);
-                                if (area > max){
-                                    max = area;
-                                    maxCnt = poly.get(i);
-                                }  
-                            }
-                            maxCnts.push_back(maxCnt);
-                            for (var i = 0; i < cnts.size(); i++){
-                                var color = new cv.Scalar(0, 255, 255);
-                                cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
-                            }
+                            // for (var i = 0; i < cnts.size(); i++)
+                            // {
+                            //     var tmp = new cv.Mat();
+                            //     var cnt = cnts.get(i);
+                            //     var peri = cv.arcLength(cnt, true);
+                            //     cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
+                            //     cntsPoly.push_back(tmp);                                   
+                            //     tmp.delete();
+                            //     cnt.delete();                  
+                            // }
+                            // let max = 0;
+                            // let maxCnts = new cv.MatVector();
+                            // for (var i = 0; i < cnts.size(); i++){
+                            //     var area = cv.contourArea(poly.get(i), false);
+                            //     if (area > max){
+                            //         max = area;
+                            //         maxCnt = poly.get(i);
+                            //     }  
+                            // }
+                            // maxCnts.push_back(maxCnt);
+                            // for (var i = 0; i < cnts.size(); i++){
+                            //     var color = new cv.Scalar(0, 255, 255);
+                            //     cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
+                            // }
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
 
                             //Delete the frame/var to clear memory
-                            maxCnts.delete();
-                            maxCnt.delete();
+                            //maxCnts.delete();
+                            //maxCnt.delete();
                             dst.delete();
                             src.delete();
                             cnts.delete(); 
