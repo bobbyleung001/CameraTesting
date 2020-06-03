@@ -91,11 +91,15 @@
                             //     return a.contourArea - b.contourArea;
                             // });
                             
-                            for (var i = 0; i<cnts.size(); i++)
+                            for (var i = 0; i < cnts.size(); i++)
                             {
-                                approxPolyDP(Mat(cnts.get(i)), cntsPoly.get(i), 7, true);
-                        
-                                drawContours(dst, cntsPoly, i, Scalar(0, 255, 255), 2, 8, hierarchy, 100);  
+                                let tmp = new cv.Mat();
+                                cv.approxPolyDP(cnts.get(i), tmp, 7, true);     
+                                cntsPoly.push_back(tmp);
+                                tmp.delete();                  
+                            }
+                            for (var i = 0; i < cnts.size(); i++){
+                                cv.drawContours(dst, cntsPoly, i, Scalar(0, 255, 255), 2, 8, hierarchy, 100);  
                             }
                             console.log(cnts.get(0));
                             //Show the processed frame to the canvas
