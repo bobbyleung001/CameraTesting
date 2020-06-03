@@ -84,13 +84,13 @@
                             // let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
                             // cv.rectangle(dst, point1, point2, rectangleColor, 2, cv.LINE_AA, 0); 
                             let cnts = new cv.MatVector();
-                            
+                            let cntsPoly = new cv.MatVector();
                             let hierarchy = new cv.Mat();
-                            cnts = cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
                             // cnts = cnts.sort(function(a,b){
                             //     return a.contourArea - b.contourArea;
                             // });
-                            let cntsPoly = new cv.MatVector(cnts.length);
+                            
                             for (var i = 0; i<cnts.size(); i++)
                             {
                                 approxPolyDP(Mat(cnts.get(i)), cntsPoly.get(i), 7, true);
