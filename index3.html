@@ -60,10 +60,10 @@
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             src.data.set(context.getImageData(0, 0, width, height).data);      
                             let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                     
-                            //dst.data.set(context.getImageData(0, 0, width, height).data); 
+                            dst.data.set(context.getImageData(0, 0, width, height).data); 
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
-                            cv.GaussianBlur(src, src, new cv.Size(11, 11), 0, 0, cv.BORDER_DEFAULT);
+                            cv.GaussianBlur(src, src, new cv.Size(7, 7), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
                             cv.Canny(src, src, 75, 250, 3, false);
                             
