@@ -70,15 +70,12 @@
                             let cntsPoly = new cv.MatVector();
                             let hierarchy = new cv.Mat();
                             cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            // cnts = cnts.sort(function(a,b){
-                            //     return a.contourArea - b.contourArea;
-                            // });
                             
                             for (var i = 0; i < cnts.size(); i++)
                             {
-                                var tmp = new cv.Mat();
-                                var cnt = cnts.get(i);
-                                var peri = cv.arcLength(cnt, true);
+                                let tmp = new cv.Mat();
+                                let cnt = cnts.get(i);
+                                var peri = cv.arcLength(cnt, false);
                                 cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
                                 cntsPoly.push_back(tmp);                                   
                                 tmp.delete();
@@ -86,7 +83,7 @@
                             }
                             var max = 0;
                             let maxCnts = new cv.MatVector();
-                            var maxCnt = new cv.Mat();
+                            let maxCnt = new cv.Mat();
                             for (var i = 0; i < cntsPoly.size(); i++){
                                 var area = cv.contourArea(cntsPoly.get(i), false);
                                 if (area > max){
