@@ -52,13 +52,14 @@
     
                         function processVideo(){
                             let src = new cv.Mat(height, width, cv.CV_8UC4);
-                            let dst = new cv.Mat(height, width, cv.CV_8UC3);
+                            
                             
                             let begin = Date.now();
                             
                             //Get the frame from the video element, then process it
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
-                            src.data.set(context.getImageData(0, 0, width, height).data);                           
+                            src.data.set(context.getImageData(0, 0, width, height).data);      
+                            let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                     
                             //dst.data.set(context.getImageData(0, 0, width, height).data); 
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
