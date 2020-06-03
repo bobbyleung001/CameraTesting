@@ -59,27 +59,32 @@
                             //Get the frame from the video element, then process it
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             src.data.set(context.getImageData(0, 0, width, height).data);
-                            
+                            //Garbage Collection to prevent Memory Leak
+                            gc();
+
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
-                            //cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
+                            cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection 
-                            cv.Canny(src, src, 35, 125, 3, false);
+                            cv.Canny(src, dst, 75, 200, 3, false);
 
                             //Try to get the "Card-like" object and bound it with a rectangle
-                            let contours = new cv.MatVector();
-                            let hierarchy = new cv.Mat();
-                            cv.findContours(src, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
-                            let cnt = contours.get(0);
-                            //var cnts = cv.findContours(dst, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            //let cnt = cnts[0];
-                            let rect = cv.boundingRect(cnt);
-                            let contoursColor = new cv.Scalar(255, 255, 255);
-                            let rectangleColor = new cv.Scalar(255, 0, 0);
-                            cv.drawContours(dst, contours, 0, contoursColor, 1, 8, hierarchy, 100);
-                            let point1 = new cv.Point(rect.x, rect.y);
-                            let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
-                            cv.rectangle(dst, point1, point2, rectangleColor, 2, cv.LINE_AA, 0); 
+                            // let contours = new cv.MatVector();
+                            // let hierarchy = new cv.Mat();
+                            // cv.findContours(src, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            // contours = contours.sort(function (a,b){
+                            //     return a
+                            // })
+                            // let cnt = contours.get(0);
+                            // //var cnts = cv.findContours(dst, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            // //let cnt = cnts[0];
+                            // let rect = cv.boundingRect(cnt);
+                            // let contoursColor = new cv.Scalar(255, 255, 255);
+                            // let rectangleColor = new cv.Scalar(255, 0, 0);
+                            // cv.drawContours(dst, contours, 0, contoursColor, 1, 8, hierarchy, 100);
+                            // let point1 = new cv.Point(rect.x, rect.y);
+                            // let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
+                            // cv.rectangle(dst, point1, point2, rectangleColor, 2, cv.LINE_AA, 0); 
 
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
