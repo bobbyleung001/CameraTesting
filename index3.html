@@ -84,7 +84,7 @@
                                 tmp.delete();
                                 cnt.delete();                  
                             }
-                            let max = 0;
+                            var max = 0;
                             let maxCnts = new cv.MatVector();
                             for (var i = 0; i < cnts.size(); i++){
                                 var area = cv.contourArea(cntsPoly.get(i), false);
@@ -96,7 +96,7 @@
                             maxCnts.push_back(maxCnt);
                             for (var i = 0; i < cnts.size(); i++){
                                 var color = new cv.Scalar(0, 255, 255);
-                                cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
+                                //cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
                             }
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
