@@ -96,8 +96,10 @@
                                 var tmp = new cv.Mat();
                                 var cnt = cnts.get(i);
                                 var peri = cv.arcLength(cnt, true);
-                                cv.approxPolyDP(cnt, tmp, 0.005 * peri, true);     
-                                cntsPoly.push_back(tmp);
+                                cv.approxPolyDP(cnt, tmp, 0.005 * peri, true);
+                                if (tmp.size() == 4){
+                                    cntsPoly.push_back(tmp);
+                                }     
                                 tmp.delete();
                                 cnt.delete();                  
                             }
@@ -105,7 +107,7 @@
                                 var color = new cv.Scalar(0, 255, 255);
                                 cv.drawContours(dst, cntsPoly, i, color, 2, 8, hierarchy, 100);  
                             }
-                            console.log(cnts.get(0));
+                            //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
 
