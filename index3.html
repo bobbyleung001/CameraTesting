@@ -69,35 +69,35 @@
                             let cnts = new cv.MatVector();
                             let cntsPoly = new cv.MatVector();
                             let hierarchy = new cv.Mat();
-                            // cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            // // cnts = cnts.sort(function(a,b){
-                            // //     return a.contourArea - b.contourArea;
-                            // // });
+                            cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            // cnts = cnts.sort(function(a,b){
+                            //     return a.contourArea - b.contourArea;
+                            // });
                             
-                            // for (var i = 0; i < cnts.size(); i++)
-                            // {
-                            //     var tmp = new cv.Mat();
-                            //     var cnt = cnts.get(i);
-                            //     var peri = cv.arcLength(cnt, true);
-                            //     cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
-                            //     cntsPoly.push_back(tmp);                                   
-                            //     tmp.delete();
-                            //     cnt.delete();                  
-                            // }
-                            // let max = 0;
-                            // let maxCnts = new cv.MatVector();
-                            // for (var i = 0; i < cnts.size(); i++){
-                            //     var area = cv.contourArea(poly.get(i), false);
-                            //     if (area > max){
-                            //         max = area;
-                            //         maxCnt = poly.get(i);
-                            //     }  
-                            // }
-                            // maxCnts.push_back(maxCnt);
-                            // for (var i = 0; i < cnts.size(); i++){
-                            //     var color = new cv.Scalar(0, 255, 255);
-                            //     cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
-                            // }
+                            for (var i = 0; i < cnts.size(); i++)
+                            {
+                                var tmp = new cv.Mat();
+                                var cnt = cnts.get(i);
+                                var peri = cv.arcLength(cnt, true);
+                                cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
+                                cntsPoly.push_back(tmp);                                   
+                                tmp.delete();
+                                cnt.delete();                  
+                            }
+                            let max = 0;
+                            let maxCnts = new cv.MatVector();
+                            for (var i = 0; i < cnts.size(); i++){
+                                var area = cv.contourArea(poly.get(i), false);
+                                if (area > max){
+                                    max = area;
+                                    maxCnt = poly.get(i);
+                                }  
+                            }
+                            maxCnts.push_back(maxCnt);
+                            for (var i = 0; i < cnts.size(); i++){
+                                var color = new cv.Scalar(0, 255, 255);
+                                cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
+                            }
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
