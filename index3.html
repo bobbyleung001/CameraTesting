@@ -112,7 +112,7 @@
                             hierarchy.delete(); 
                             cntsPoly.delete();
                             //Schedule next one. Repeat it once on every frame, make it looks like a video
-                            let delay = 1000/FPS - (Date.now() - begin);
+                            let delay = 10000/FPS - (Date.now() - begin);
                             setTimeout(processVideo, delay);
                         }
                         setTimeout(processVideo, 0);
