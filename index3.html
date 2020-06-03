@@ -62,30 +62,31 @@
                             dst.data.set(context.getImageData(0, 0, width, height).data); 
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
-                            cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
+                            cv.GaussianBlur(src, src, new cv.Size(15, 15), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
-                            cv.Canny(src, src, 75, 250, 3, false);
+                            cv.Canny(src, src, 20, 160, 3, false);
                             
                             let contours = new cv.MatVector();
                             let poly = new cv.MatVector();
                             let hierarchy = new cv.Mat();
                             cv.findContours(src, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
                             
-                            for (var i = 0; i < contours.size(); i++)
-                            {
-                                let tmp = new cv.Mat();
-                                let cnt = contours.get(i);
-                                var peri = cv.arcLength(cnt, false);
-                                var area = cv.contourArea(cnt);
-                                cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
-                                poly.push_back(tmp);                                   
-                                tmp.delete();
-                                cnt.delete();                  
-                            }
-                            for (let i = 0; i < contours.size(); ++i) {
-                                let color = new cv.Scalar(0,255,255);
-                                cv.drawContours(dst, poly, i, color, -1, 8, hierarchy, 0);
-                            }
+                            // for (var i = 0; i < contours.size(); i++)
+                            // {
+                            //     let tmp = new cv.Mat();
+                            //     let cnt = contours.get(i);
+                            //     var peri = cv.arcLength(cnt, false);
+                            //     var area = cv.contourArea(cnt);
+                            //     cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);                               
+                            //     poly.push_back(tmp);                                   
+                            //     tmp.delete();
+                            //     cnt.delete();                  
+                            // }
+
+                            
+                            let color = new cv.Scalar(0,255,255);
+                            cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);
+                            
                             
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
