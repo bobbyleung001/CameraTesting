@@ -95,10 +95,13 @@
                                 }  
                             }
                             maxCnts.push_back(maxCnt);
-                            for (var i = 0; i < maxCnts.size(); i++){
-                                var color = new cv.Scalar(0, 255, 255);
-                                cv.drawContours(dst, maxCnts, i, color, -1, 8, hierarchy, 100);  
+                            if (maxCnts.size() > 0){
+                                for (var i = 0; i < maxCnts.size(); i++){
+                                    var color = new cv.Scalar(0, 255, 255);
+                                    cv.drawContours(dst, maxCnts, i, color, -1, 8, hierarchy, 100);  
+                                }
                             }
+                            
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
@@ -112,7 +115,7 @@
                             hierarchy.delete(); 
                             cntsPoly.delete();
                             //Schedule next one. Repeat it once on every frame, make it looks like a video
-                            let delay = 10000/FPS - (Date.now() - begin);
+                            let delay = 1000/FPS - (Date.now() - begin);
                             setTimeout(processVideo, delay);
                         }
                         setTimeout(processVideo, 0);
