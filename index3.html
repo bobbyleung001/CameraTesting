@@ -64,7 +64,7 @@
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection 
-                            cv.Canny(src, dst, 75, 200, 3, false);
+                            cv.Canny(src, src, 75, 200, 3, false);
 
                             //Try to get the "Card-like" object and bound it with a rectangle
                             // let contours = new cv.MatVector();
@@ -86,10 +86,10 @@
                             let cnts = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
-                            cnts = cv.findContours(dst, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
-                            cnts = cnts.sort(function(a,b){
-                                return a.contourArea - b.contourArea;
-                            });
+                            cnts = cv.findContours(src, cnts, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+                            // cnts = cnts.sort(function(a,b){
+                            //     return a.contourArea - b.contourArea;
+                            // });
                             let cntsPoly = new cv.MatVector(cnts.length);
                             for (var i = 0; i<cnts.size(); i++)
                             {
