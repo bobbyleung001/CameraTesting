@@ -94,9 +94,9 @@
                                 }  
                             }
                             maxCnts.push_back(maxCnt);
-                            for (var i = 0; i < cnts.size(); i++){
+                            for (var i = 0; i < maxCnts.size(); i++){
                                 var color = new cv.Scalar(0, 255, 255);
-                                //cv.drawContours(dst, maxCnts, i, color, 2, 8, hierarchy, 100);  
+                                cv.drawContours(dst, maxCnts, i, color, -1, 8, hierarchy, 100);  
                             }
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
