@@ -93,13 +93,16 @@
                             
                             for (var i = 0; i < cnts.size(); i++)
                             {
-                                let tmp = new cv.Mat();
-                                cv.approxPolyDP(cnts.get(i), tmp, 7, true);     
+                                var tmp = new cv.Mat();
+                                var cnt = cnts.get(i);
+                                var peri = cv.arcLength(cnt, true);
+                                cv.approxPolyDP(cnt, tmp, 0.005 * peri, true);     
                                 cntsPoly.push_back(tmp);
-                                tmp.delete();                  
+                                tmp.delete();
+                                cnt.delete();                  
                             }
                             for (var i = 0; i < cnts.size(); i++){
-                                let color = new cv.Scalar(0, 255, 255);
+                                var color = new cv.Scalar(0, 255, 255);
                                 cv.drawContours(dst, cntsPoly, i, color, 2, 8, hierarchy, 100);  
                             }
                             console.log(cnts.get(0));
