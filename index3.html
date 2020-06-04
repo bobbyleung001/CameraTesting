@@ -83,7 +83,8 @@
                     //Get the frame from the video element, then process it
                     //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                     //src.data.set(context.getImageData(0, 0, width, height).data);      
-                    let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
+                    //let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
+                    let dst = new cv.Mat();
                     dst = src.clone();
                     let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
                     let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
@@ -98,8 +99,6 @@
 
                     let hierarchy = new cv.Mat();
                     cv.findContours(srcCopy, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-
 
                     let poly = new cv.MatVector();
 
