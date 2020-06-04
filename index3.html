@@ -93,9 +93,9 @@
                                 let tmp = new cv.Mat();
                                 let cnt = contours.get(i);
                                 var peri = cv.arcLength(cnt, false);
-                                
+                                var area = cv.contourArea(cnt);
                                 cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);  
-                                if (tmp.rows == 4){
+                                if (tmp.rows == 4 && area > 20){
                                     //Add to array ONLY when it got 4 vertices (rectangle)
                                     poly.push_back(tmp);                                   
                                 }                                                                                               
@@ -120,13 +120,22 @@
                             {
                                 //Draw all the contours in the array
                                 cv.drawContours(debug, poly, i, color, -1, 8, hierarchy, 0);
+                                //Mark the area of the contour
+                                let cnt = poly.get(i);
+                                var area = cv.contourArea(cnt);
+                                let mom = cv.moments(cnt, false);
+                                let cX = mom.m10 / mom.m00
+                                let cY = mom.m01 / mom.m00                              
+                                cv.putText(debug, area+'', new cv.Point(cX, cY), cv.FONT_HERSHEY_SIMPLEX, 1, color);
+                                cnt.delete();
                             }
                             if (maxCnts.size() > 0){
                                 cv.drawContours(dst, maxCnts, maxCnts.size()-1, color, -1, 8, hierarchy, 0);
+                                console.log(maxCnts);
+                                console.log(maxCnts.get(maxCnts.size()-1));
                             }                           
-                            //cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);
-                                                                                 
-                            //console.log(cnts.get(0));
+                            //cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);                                                                                 
+                            
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
                             cv.imshow("debugCanvas", debug); 
