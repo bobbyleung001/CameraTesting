@@ -144,7 +144,7 @@
                             cnt.delete();
                         }
                         if (maxCnts.size() > 0) {
-                            cv.drawContours(dst, maxCnts, maxCnts.size(), color, -1, 8, hierarchy, 0);
+                            cv.drawContours(dst, maxCnts, maxCnts.size()-1, color, -1, 8, hierarchy, 0);
                             console.log(maxCnts);
                             console.log(maxCnts.get(maxCnts.size() - 1));
                         }
