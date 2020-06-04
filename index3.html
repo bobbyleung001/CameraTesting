@@ -75,7 +75,7 @@
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
                             cv.Canny(src, src, 35, 125, 3, true);
-                            cv.Canny(src, debug, 35, 125, 3, true);
+                            //cv.Canny(src, debug, 35, 125, 3, true);
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
@@ -113,12 +113,14 @@
                             }
 
                             let color = new cv.Scalar(0,255,255);
-                            // for (var i = 0; i < poly.size(); i++)
-                            // {
-                            //     //Draw all the contours in the array
-                            //     cv.drawContours(dst, poly, i, color, -1, 8, hierarchy, 0);
-                            // }
-                            cv.drawContours(dst, maxCnts, 0, color, -1, 8, hierarchy, 0);
+                            for (var i = 0; i < poly.size(); i++)
+                            {
+                                //Draw all the contours in the array
+                                cv.drawContours(debug, poly, i, color, -1, 8, hierarchy, 0);
+                            }
+                            if (maxCnts.size() > 0){
+                                cv.drawContours(dst, maxCnts, maxCnts.size(), color, -1, 8, hierarchy, 0);
+                            }                           
                             //cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);
                                                                                  
                             //console.log(cnts.get(0));
