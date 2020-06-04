@@ -47,7 +47,7 @@
                 window.stream = stream;
                 const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
                 videoStreamDisplayElement.srcObject = stream;
-
+                let vc = null;
                 cv['onRuntimeInitialized']=()=>{
                     //OpenCV really ready
                     console.log("OpenCV Ready!");
@@ -55,15 +55,14 @@
                         
                         document.getElementById("loader").style.display = "none";
                         //Load the stream to the canvas after OpenCV processed
-                        let canvasFrame = document.getElementById("videoCanvas");
-                        let context = canvasFrame.getContext("2d");
+                        //let canvasFrame = document.getElementById("videoCanvas");
+                        //let context = canvasFrame.getContext("2d");
+                        vc = new cv.VideoCapture(videoStreamDisplayElement);
    
                         function processVideo(){
-                            let src = new cv.Mat(height, width, cv.CV_8UC4);
-                            
-                            
+                            let src = new cv.Mat(height, width, cv.CV_8UC4); 
                             let begin = Date.now();
-                            
+                            vc.read(src);
                             //Get the frame from the video element, then process it
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             src.data.set(context.getImageData(0, 0, width, height).data);      
