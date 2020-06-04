@@ -84,7 +84,7 @@
                     //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                     //src.data.set(context.getImageData(0, 0, width, height).data);      
                     //let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
-                    let dst = new cv.Mat();
+                    let dst = new cv.Mat(src.rows, src.cols, cv.CV_8UC4);
                     //dst = src.clone();
                     let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
                     let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
