@@ -116,6 +116,7 @@
                             }
 
                             let color = new cv.Scalar(0,255,255);
+                            let colorRed = new cv.Scalar(255,0,0);
                             for (var i = 0; i < poly.size(); i++)
                             {
                                 //Draw all the contours in the array
@@ -126,7 +127,7 @@
                                 let mom = cv.moments(cnt, false);
                                 let cX = mom.m10 / mom.m00
                                 let cY = mom.m01 / mom.m00                              
-                                cv.putText(debug, area+'', new cv.Point(cX, cY), cv.FONT_HERSHEY_SIMPLEX, 1, color);
+                                cv.putText(debug, area+'', new cv.Point(cX, cY), cv.FONT_HERSHEY_SIMPLEX, 1, colorRed);
                                 cnt.delete();
                             }
                             if (maxCnts.size() > 0){
