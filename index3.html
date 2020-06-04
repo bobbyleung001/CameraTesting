@@ -125,6 +125,7 @@
                             var area = cv.contourArea(cnt);
                             if (area > maxArea) {
                                 maxCnts.push_back(cnt);
+                                maxArea = area;
                             }
                             cnt.delete();
                         }
