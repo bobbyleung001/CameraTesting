@@ -83,7 +83,8 @@
                     //Get the frame from the video element, then process it
                     //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                     //src.data.set(context.getImageData(0, 0, width, height).data);      
-                    let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
+                    let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
+                    dst = src.clone();
                     let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
                     let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
                     //dst.data.set(context.getImageData(0, 0, width, height).data); 
@@ -131,6 +132,7 @@
                         }
 
                         let color = new cv.Scalar(0, 255, 255);
+                        let colorRGBA = new cv.Scalar(0, 255, 255, 128);
                         let colorRed = new cv.Scalar(255, 0, 0);
                         for (var i = 0; i < poly.size(); i++) {
                             //Draw all the contours in the array
@@ -145,9 +147,9 @@
                             cnt.delete();
                         }
                         if (maxCnts.size() > 0) {
-                            cv.drawContours(dst, maxCnts, maxCnts.size()-1, color, -1, 8, hierarchy, 0);
-                            console.log(maxCnts);
-                            console.log(maxCnts.get(maxCnts.size() - 1));
+                            cv.drawContours(dst, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
+                            //console.log(maxCnts);
+                            //console.log(maxCnts.get(maxCnts.size() - 1));
                         }
                     }
 
