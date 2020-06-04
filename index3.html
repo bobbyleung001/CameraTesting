@@ -58,9 +58,9 @@
                         //let canvasFrame = document.getElementById("videoCanvas");
                         //let context = canvasFrame.getContext("2d");
                         vc = new cv.VideoCapture(videoStreamDisplayElement);
-   
+                        let src = new cv.Mat(height, width, cv.CV_8UC4); 
                         function processVideo(){
-                            let src = new cv.Mat(height, width, cv.CV_8UC4); 
+                            
                             let begin = Date.now();
                             vc.read(src);
                             //Get the frame from the video element, then process it
@@ -136,9 +136,11 @@
                             poly.delete();
                             //Schedule next one. Repeat it once on every frame, make it looks like a video
                             let delay = 1000/FPS - (Date.now() - begin);
-                            setTimeout(processVideo, delay);
+                            //setTimeout(processVideo, delay);
+                            requestAnimationFrame(processVideo);
                         }
-                        setTimeout(processVideo, 0);
+                        requestAnimationFrame(processVideo);
+                        //setTimeout(processVideo, 0);
                     //}catch(e){
                     //    document.getElementById("errorLog").innerText=e.message;
                     //}
