@@ -70,18 +70,19 @@
                             //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             //src.data.set(context.getImageData(0, 0, width, height).data);      
                             let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);   
-                            let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                  
+                            let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
+                            let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);                  
                             //dst.data.set(context.getImageData(0, 0, width, height).data); 
-                            cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
+                            cv.cvtColor(src, srcCopy, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
-                            cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
+                            cv.GaussianBlur(srcCopy, srcCopy, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
-                            cv.Canny(src, src, 35, 125, 3, true);
+                            cv.Canny(srcCopy, srcCopy, 35, 125, 3, true);
                             //cv.Canny(src, debug, 35, 125, 3, true);
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
-                            cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+                            cv.findContours(srcCopy, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
                             
 
                             
@@ -133,6 +134,7 @@
                             maxCnts.delete();
                             debug.delete();
                             dst.delete();
+                            srcCopy.delete();
                             //src.delete();
                             contours.delete(); 
                             hierarchy.delete(); 
