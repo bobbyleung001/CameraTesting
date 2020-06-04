@@ -50,7 +50,7 @@
         //const height = 1080;
         //sconst width = 1920;
 
-        const FPS = 10;
+        const FPS = 5;
         const constraints = {
             video: {
                 width: width, height: height, frameRate: FPS, facingMode: 'environment'
@@ -85,7 +85,7 @@
                     //src.data.set(context.getImageData(0, 0, width, height).data);      
                     //let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
                     let dst = new cv.Mat(src.rows, src.cols, cv.CV_8UC4);
-                    //dst = src.clone();
+                    dst = src.clone();
                     let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
                     let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
                     //dst.data.set(context.getImageData(0, 0, width, height).data); 
