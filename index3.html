@@ -74,8 +74,8 @@
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
-                            cv.Canny(src, src, 75, 200, 3, true);
-                            cv.Canny(src, debug, 75, 200, 3, true);
+                            cv.Canny(src, src, 35, 125, 3, true);
+                            cv.Canny(src, debug, 35, 125, 3, true);
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
