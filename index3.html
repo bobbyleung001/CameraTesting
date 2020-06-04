@@ -18,6 +18,10 @@
             display: block;
             text-align: center;
         }
+
+        .hidden{
+            display: none;
+        }
     </style>
 </head>
 
@@ -34,7 +38,7 @@
             <div></div>
         </div>
     </div>
-    <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass"></video>
+    <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass hidden"></video>
     <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
     <canvas id="debugCanvas" class="videoDisplayClass"></canvas>
     <span id="errorLog"></span>
@@ -84,8 +88,8 @@
                     //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                     //src.data.set(context.getImageData(0, 0, width, height).data);      
                     //let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
-                    let dst = new cv.Mat(height, width, cv.CV_8UC4);
-                    dst = src.clone();
+                    //let dst = new cv.Mat(height, width, cv.CV_8UC4);
+                    //dst = src.clone();
                     let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);
                     let srcCopy = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
                     //dst.data.set(context.getImageData(0, 0, width, height).data); 
@@ -146,7 +150,7 @@
                             cnt.delete();
                         }
                         if (maxCnts.size() > 0) {
-                            cv.drawContours(dst, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
+                            cv.drawContours(src, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
                             //console.log(maxCnts);
                             //console.log(maxCnts.get(maxCnts.size() - 1));
                         }
@@ -155,12 +159,12 @@
                     //cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);                                                                                 
 
                     //Show the processed frame to the canvas
-                    cv.imshow("videoCanvas", dst);
+                    cv.imshow("videoCanvas", src);
                     cv.imshow("debugCanvas", debug);
                     //Delete the frame/var to clear memory
                     maxCnts.delete();
                     debug.delete();
-                    dst.delete();
+                    //dst.delete();
                     srcCopy.delete();
                     //src.delete();
                     contours.delete();
