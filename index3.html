@@ -21,6 +21,8 @@
 
         .hidden{
             transform: scale(0);
+            width:0;
+            height:0;
         }
     </style>
 </head>
@@ -38,9 +40,9 @@
             <div></div>
         </div>
     </div> 
-    <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
-    <canvas id="debugCanvas" class="videoDisplayClass"></canvas>
     <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass hidden"></video>
+    <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
+    <canvas id="debugCanvas" class="videoDisplayClass"></canvas>  
     <span id="errorLog"></span>
     <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
     <script>
