@@ -104,7 +104,7 @@
                             let maxArea = 0;
                             let maxCnts = new cv.MatVector();
                             for (var i = 0 ; i < poly.size(); i++){
-                                let cnt = contours.get(i);
+                                let cnt = poly.get(i);
                                 var area = cv.contourArea(cnt);
                                 if (area > maxArea){
                                     maxCnts.push_back(cnt);
