@@ -81,6 +81,8 @@
                             let hierarchy = new cv.Mat();
                             cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
                             
+                            let maxCnt = new cv.Mat();
+                            let maxArea = 0;
                             let poly = new cv.MatVector();
                             for (var i = 0; i < contours.size(); i++)
                             {
@@ -91,12 +93,18 @@
                                 cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);  
                                 if (tmp.rows == 4){
                                     //Add to array ONLY when it got 4 vertices (rectangle)
-                                    poly.push_back(tmp);
+                                    //poly.push_back(tmp);
+                                    if (area > maxArea){
+                                        maxCnt = tmp;
+                                    }
                                 }                                                                                               
                                 tmp.delete();
                                 cnt.delete();                  
                             }
-                          
+                            //Only push the largest rect. like obj to the array
+                            poly.push_back(maxCnt);
+
+
                             let color = new cv.Scalar(0,255,255);
                             for (var i = 0; i < poly.size(); i++)
                             {
@@ -111,6 +119,7 @@
                             cv.imshow("videoCanvas", dst); 
                             cv.imshow("debugCanvas", debug); 
                             //Delete the frame/var to clear memory
+                            maxCnt.delete();
                             debug.delete();
                             dst.delete();
                             src.delete();
