@@ -81,39 +81,44 @@
                             let hierarchy = new cv.Mat();
                             cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
                             
-                            let maxCnt = new cv.Mat();
-                            let maxArea = 0;
+
+                            
                             let poly = new cv.MatVector();
-                            let tmp = new cv.Mat();
+                            
                             for (var i = 0; i < contours.size(); i++)
                             {
-                                
+                                let tmp = new cv.Mat();
                                 let cnt = contours.get(i);
                                 var peri = cv.arcLength(cnt, false);
-                                var area = cv.contourArea(cnt);
+                                
                                 cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);  
                                 if (tmp.rows == 4){
                                     //Add to array ONLY when it got 4 vertices (rectangle)
-                                    //poly.push_back(tmp);
-                                    if (area > maxArea){
-                                        maxCnt = tmp;
-					maxArea = area;
-                                    }
+                                    poly.push_back(tmp);                                   
                                 }                                                                                               
-                                
+                                tmp.delete();
                                 cnt.delete();                  
                             }
                             //Only push the largest rect. like obj to the array
-                            poly.push_back(maxCnt);
-                            tmp.delete();
+                            
+                            let maxArea = 0;
+                            let maxCnts = new cv.MatVector();
+                            for (var i = 0 ; i < poly.size(); i++){
+                                let cnt = contours.get(i);
+                                var area = cv.contourArea(cnt);
+                                if (area > maxArea){
+                                    maxCnts.push_back(cnt);
+                                }
+                                cnt.delete();
+                            }
 
                             let color = new cv.Scalar(0,255,255);
-                            for (var i = 0; i < poly.size(); i++)
-                            {
-                                //Draw all the contours in the array
-                                cv.drawContours(dst, poly, i, color, -1, 8, hierarchy, 0);
-                            }
-                            //cv.drawContours(dst, contours, -1, color, -1, 8, hierarchy, 0);
+                            // for (var i = 0; i < poly.size(); i++)
+                            // {
+                            //     //Draw all the contours in the array
+                            //     cv.drawContours(dst, poly, i, color, -1, 8, hierarchy, 0);
+                            // }
+                            cv.drawContours(dst, maxCnts, maxCnts.size()-1, color, -1, 8, hierarchy, 0);
                             //cv.drawContours(dst, poly, -1, color, -1, 8, hierarchy, 0);
                                                                                  
                             //console.log(cnts.get(0));
@@ -121,7 +126,7 @@
                             cv.imshow("videoCanvas", dst); 
                             cv.imshow("debugCanvas", debug); 
                             //Delete the frame/var to clear memory
-                            //maxCnt.delete();
+                            maxCnts.delete();
                             debug.delete();
                             dst.delete();
                             src.delete();
