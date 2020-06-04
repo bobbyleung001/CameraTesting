@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/loader.css"/>
         <style>
             .videoDisplayClass{
-                transform: rotateY(180deg);
+                /* transform: rotateY(180deg); */
                 width: 48vw;
             }
             .loaderWrapper{
@@ -65,12 +65,12 @@
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
-                            cv.Canny(src, src, 75, 250, 3, false);
+                            cv.Canny(src, dst, 75, 250, 3, false);
                             
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
-                            cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+                            //cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
                             
                             //let poly = new cv.MatVector();
                             // for (var i = 0; i < contours.size(); i++)
@@ -87,7 +87,7 @@
 
                             
                             let color = new cv.Scalar(0,255,255);
-                            cv.drawContours(dst, contours, -1, color, -1, 8, hierarchy, 0);
+                            //cv.drawContours(dst, contours, -1, color, -1, 8, hierarchy, 0);
                             
                             
                             //console.log(cnts.get(0));
