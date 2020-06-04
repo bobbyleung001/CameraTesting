@@ -103,7 +103,7 @@
                             cv.imshow("videoCanvas", dst); 
                             cv.imshow("debugCanvas", debug); 
                             //Delete the frame/var to clear memory
-                            
+                            debug.delete();
                             dst.delete();
                             src.delete();
                             contours.delete(); 
