@@ -66,8 +66,8 @@
                             let begin = Date.now();
                             vc.read(src);
                             //Get the frame from the video element, then process it
-                            context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
-                            src.data.set(context.getImageData(0, 0, width, height).data);      
+                            //context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
+                            //src.data.set(context.getImageData(0, 0, width, height).data);      
                             let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);   
                             let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                  
                             //dst.data.set(context.getImageData(0, 0, width, height).data); 
