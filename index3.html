@@ -84,9 +84,10 @@
                             let maxCnt = new cv.Mat();
                             let maxArea = 0;
                             let poly = new cv.MatVector();
+                            let tmp = new cv.Mat();
                             for (var i = 0; i < contours.size(); i++)
                             {
-                                let tmp = new cv.Mat();
+                                
                                 let cnt = contours.get(i);
                                 var peri = cv.arcLength(cnt, false);
                                 var area = cv.contourArea(cnt);
@@ -98,12 +99,12 @@
                                         maxCnt = tmp;
                                     }
                                 }                                                                                               
-                                tmp.delete();
+                                
                                 cnt.delete();                  
                             }
                             //Only push the largest rect. like obj to the array
                             poly.push_back(maxCnt);
-
+                            tmp.delete();
 
                             let color = new cv.Scalar(0,255,255);
                             for (var i = 0; i < poly.size(); i++)
