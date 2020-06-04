@@ -59,18 +59,18 @@
                             //Get the frame from the video element, then process it
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             src.data.set(context.getImageData(0, 0, width, height).data);      
-                            let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                     
+                            let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);                     
                             //dst.data.set(context.getImageData(0, 0, width, height).data); 
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(7, 7), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
-                            cv.Canny(src, dst, 20, 160, 3, false);
+                            cv.Canny(src, src, 20, 160, 3, false);
                             
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
-                            //cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+                            cv.findContours(src, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
                             
                             //let poly = new cv.MatVector();
                             // for (var i = 0; i < contours.size(); i++)
@@ -87,8 +87,8 @@
 
                             
                             let color = new cv.Scalar(0,255,255);
-                            //cv.drawContours(dst, contours, -1, color, -1, 8, hierarchy, 0);
-                            
+                            cv.drawContours(dst, contours, -1, color, -1, 8, hierarchy, 0);
+                                                      
                             
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
