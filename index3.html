@@ -11,7 +11,7 @@
         .videoDisplayClass {
             /* transform: rotateY(180deg); */
             width: 48vw;
-            height: auto;
+            height: auto;            
         }
 
         .loaderWrapper {
@@ -20,7 +20,7 @@
         }
 
         .hidden{
-            display: none;
+            transform: scale(0);
         }
     </style>
 </head>
@@ -37,10 +37,10 @@
             <div></div>
             <div></div>
         </div>
-    </div>
-    <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass hidden"></video>
+    </div> 
     <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
     <canvas id="debugCanvas" class="videoDisplayClass"></canvas>
+    <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass hidden"></video>
     <span id="errorLog"></span>
     <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
     <script>
