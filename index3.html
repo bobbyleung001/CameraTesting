@@ -21,6 +21,7 @@
         <div class="loaderWrapper"><div id="loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
         <video id="videoStreamDisplay" playsinline autoplay muted class="videoDisplayClass"></video>
         <canvas id="videoCanvas" class="videoDisplayClass"></canvas>
+        <canvas id="debugCanvas" class="videoDisplayClass"></canvas>
         <span id="errorLog"></span>
         <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
         <script>
@@ -56,8 +57,7 @@
                         //Load the stream to the canvas after OpenCV processed
                         let canvasFrame = document.getElementById("videoCanvas");
                         let context = canvasFrame.getContext("2d");
-
-    
+   
                         function processVideo(){
                             let src = new cv.Mat(height, width, cv.CV_8UC4);
                             
@@ -67,14 +67,15 @@
                             //Get the frame from the video element, then process it
                             context.drawImage(videoStreamDisplayElement, 0, 0, width, height);                            
                             src.data.set(context.getImageData(0, 0, width, height).data);      
-                            let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                     
+                            let dst = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);   
+                            let debug = new cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC3);                  
                             //dst.data.set(context.getImageData(0, 0, width, height).data); 
                             cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
                             //cv.threshold(src, src, 177, 200, cv.THRESH_BINARY);
                             cv.GaussianBlur(src, src, new cv.Size(9, 9), 0, 0, cv.BORDER_DEFAULT);
                             //Edge Detection ori:75, 200
                             cv.Canny(src, src, 20, 160, 3, false);
-                            
+                            cv.Canny(src, debug, 20, 160, 3, false);
                             let contours = new cv.MatVector();
                             
                             let hierarchy = new cv.Mat();
@@ -100,7 +101,7 @@
                             //console.log(cnts.get(0));
                             //Show the processed frame to the canvas
                             cv.imshow("videoCanvas", dst); 
-
+                            cv.imshow("debugCanvas", debug); 
                             //Delete the frame/var to clear memory
                             
                             dst.delete();
