@@ -47,6 +47,8 @@
                 window.stream = stream;
                 const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
                 videoStreamDisplayElement.srcObject = stream;
+                videoStreamDisplayElement.height = height;
+                videoStreamDisplayElement.width = width;
                 let vc = null;
                 cv['onRuntimeInitialized']=()=>{
                     //OpenCV really ready
