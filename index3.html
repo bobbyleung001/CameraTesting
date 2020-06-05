@@ -71,7 +71,7 @@
         let stream;
         let videoStreamDisplay;
         window.onload = function(){
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            stream = navigator.mediaDevices.getUserMedia(constraints);
             window.stream = stream;
             videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.srcObject = stream;
