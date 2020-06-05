@@ -168,8 +168,9 @@
                                 cv.line(src, vertices[i], vertices[(i + 1) % 4], rectangleColor, 2, cv.LINE_AA, 0);
                             }
                             let objHeight = rotatedRect.height;
+                            console.log(objHeight);
                             // d = f * realH / objH                           
-                            let distance = (focalLength * cardHeight)/(objHeight);
+                            var distance = (focalLength * cardHeight)/(objHeight);
                             console.log("distance (mm): " + distance);
                             cv.drawContours(src, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
                         }
