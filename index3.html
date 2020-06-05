@@ -64,7 +64,9 @@
         };
         //Use mm as unit
         //35mm Eq-focal length = 26
-        const focalLength = 520; //px
+        //focal length ~ 4.74mm
+        const sensorHeight = 6.4; //mm
+        const focalLength = 4.74; //mm
         const cardWidth = 85; //mm
         const cardHeight = 54; //mm
         
@@ -173,7 +175,7 @@
                             //console.log(objHeight);
                             // d = f * realH / objH 
                             //var focalLengthCal = (objHeight * 300) / (cardHeight);                          
-                            var distance = (focalLength * cardHeight)/(objHeight);
+                            var distance = (focalLength * cardHeight * height)/(objHeight * sensorHeight);
                             console.log("distance (mm): " + distance);
                             //console.log(focalLengthCal);
                             cv.drawContours(src, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
