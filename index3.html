@@ -120,7 +120,7 @@
                         var area = cv.contourArea(cnt);
                         cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);
                         //Card will be arround 14 inch far, (~35.56cm)
-                        if (tmp.rows == 4 && area > 2000 && area < 6000) {
+                        if (tmp.rows == 4 && area > 2000 ) {
                             //Add to array ONLY when it got 4 vertices (rectangle)
                             poly.push_back(tmp);
                         }
