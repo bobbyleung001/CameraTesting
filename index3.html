@@ -76,11 +76,12 @@
             videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.height = height;
             videoStreamDisplayElement.width = width;
-            if ('srcObject' in videoStreamDisplayElement) {
-                videoStreamDisplayElement.srcObject = stream;
-            } else {
-                videoStreamDisplayElement.src = URL.createObjectURL(stream);
-            }
+            videoStreamDisplayElement.src = URL.createObjectURL(stream);
+            // if ('srcObject' in videoStreamDisplayElement) {
+            //     videoStreamDisplayElement.srcObject = stream;
+            // } else {
+            //     videoStreamDisplayElement.src = URL.createObjectURL(stream);
+            // }
         });
         
 
@@ -98,7 +99,7 @@
                 //let canvasFrame = document.getElementById("videoCanvas");
                 //let context = canvasFrame.getContext("2d");
                 vc = new cv.VideoCapture(videoStreamDisplayElement);
-                let src = new cv.Mat(height, width, cv.CV_8UC4);
+                let src = new cv.Mat.zeros(height, width, cv.CV_8UC4);
                 function processVideo() {
 
                     let begin = Date.now();
