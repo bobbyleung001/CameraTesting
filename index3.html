@@ -114,7 +114,8 @@
                         var peri = cv.arcLength(cnt, false);
                         var area = cv.contourArea(cnt);
                         cv.approxPolyDP(cnt, tmp, 0.02 * peri, true);
-                        if (tmp.rows == 4 && area > 5000) {
+                        //Card will be arround 14 inch far, (~35.56cm)
+                        if (tmp.rows == 4 && area > 2000 && area < 6000) {
                             //Add to array ONLY when it got 4 vertices (rectangle)
                             poly.push_back(tmp);
                         }
@@ -145,16 +146,29 @@
                             //Mark the area of the contour
                             let cnt = poly.get(i);
                             var area = cv.contourArea(cnt);
-                            let mom = cv.moments(cnt, false);
-                            let cX = mom.m10 / mom.m00
-                            let cY = mom.m01 / mom.m00
+                            let mom = cv.moments(cnt, false); // Moments object
+                            let cX = mom.m10 / mom.m00 //center X
+                            let cY = mom.m01 / mom.m00 // center Y
+
+                            //Use mm as unit
+                            const focalLength = 23;
+                            const cardWidth = 85;
+                            const cardHeight = 54;
+                            // d = f * realH / objH
+                            let distance = (focalLength * cardHeight)/(objHeight);
+
                             cv.putText(debug, area + '', new cv.Point(cX, cY), cv.FONT_HERSHEY_SIMPLEX, 1, colorRed);
                             cnt.delete();
                         }
                         if (maxCnts.size() > 0) {
+                            let cnt = maxCnts.get(maxCnts.size()-1);
+                            let rotatedRect = cv.minAreaRect(cnt);
+                            let vertices = cv.RotatedRect.points(rotatedRect);
+                            let rectangleColor = new cv.Scalar(255, 0, 0, 128);
+                            for (let i = 0; i < 4; i++) {
+                                cv.line(src, vertices[i], vertices[(i + 1) % 4], rectangleColor, 2, cv.LINE_AA, 0);
+                            }
                             cv.drawContours(src, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
-                            //console.log(maxCnts);
-                            //console.log(maxCnts.get(maxCnts.size() - 1));
                         }
                     }
 
