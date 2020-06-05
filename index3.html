@@ -45,7 +45,7 @@
     <canvas id="debugCanvas" class="videoDisplayClass"></canvas>  
     <div>Distance: <span id="disSpan"></span> mm</div>
     <span id="errorLog"></span>
-    <!-- <script src="js/jquery.min.js"></script> -->
+    <script src="js/jquery.min.js"></script>
     <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
     <script>
         //480p
@@ -69,17 +69,23 @@
         const focalLength = 3.86; //mm
         const cardWidth = 85; //mm
         const cardHeight = 54; //mm
-        var videoStreamDisplayElement;
-       
-        async function onOpenCVReady() {
-            //Start Streaming with Camera
+        const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
+
+        $(document).ready(function(){
+            startCamera();
+        });
+
+        async function startCamera(){
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
             window.stream = stream;
-            const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.height = height;
             videoStreamDisplayElement.width = width;
             videoStreamDisplayElement.srcObject = stream;
-            const cv = require("./opencv.js");
+        };
+       
+        async function onOpenCVReady() {
+            //Start Streaming with Camera
+           
             //videoStreamDisplayElement.src = URL.createObjectURL(stream);
             // if ('srcObject' in videoStreamDisplayElement) {
             //     videoStreamDisplayElement.srcObject = stream;
@@ -87,7 +93,7 @@
             //     videoStreamDisplayElement.src = URL.createObjectURL(stream);
             // }
             let vc = null;
-            cv['onRuntimeInitialized'] = () => {
+            //cv['onRuntimeInitialized'] = () => {
                 //OpenCV really ready
                 console.log("OpenCV Ready!");
                 //try{
@@ -216,7 +222,7 @@
                 //}catch(e){
                 //    document.getElementById("errorLog").innerText=e.message;
                 //}
-            };
+            //};
 
         }
     </script>
