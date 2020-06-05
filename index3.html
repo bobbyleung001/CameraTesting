@@ -168,7 +168,8 @@
                                 cv.line(src, vertices[i], vertices[(i + 1) % 4], rectangleColor, 2, cv.LINE_AA, 0);
                             }
                             let objHeight = rotatedRect.height;
-                            console.log(objHeight);
+                            console.log(rotatedRect);
+                            //console.log(objHeight);
                             // d = f * realH / objH                           
                             var distance = (focalLength * cardHeight)/(objHeight);
                             console.log("distance (mm): " + distance);
