@@ -73,7 +73,7 @@
        
         async function onOpenCVReady() {
             //Start Streaming with Camera
-            const stream = navigator.mediaDevices.getUserMedia(constraints);
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
             window.stream = stream;
             const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.height = height;
