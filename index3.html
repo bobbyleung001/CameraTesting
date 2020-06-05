@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/loader.css" />
     <style>
         .videoDisplayClass {
-            transform: rotateY(180deg);
+            /* transform: rotateY(180deg); */
             width: 48vw;
             height: auto;            
         }
@@ -21,8 +21,8 @@
 
         .hidden{
             /* transform: scale(0); */
-            width:1;
-            height:1;
+            width:1px;
+            height:1px;
         }
     </style>
 </head>
@@ -60,7 +60,7 @@
         const FPS = 30;
         const constraints = {
             video: {
-                width: width, height: height, frameRate: FPS, facingMode: 'face'
+                width: width, height: height, frameRate: FPS, facingMode: 'environment'
             }
         };
         //Use mm as unit
