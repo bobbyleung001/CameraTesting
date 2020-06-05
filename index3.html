@@ -76,7 +76,7 @@
             videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.height = height;
             videoStreamDisplayElement.width = width;
-            if ('srcObject' in video) {
+            if ('srcObject' in videoStreamDisplayElement) {
                 videoStreamDisplayElement.srcObject = stream;
             } else {
                 videoStreamDisplayElement.src = URL.createObjectURL(stream);
