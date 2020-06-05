@@ -71,25 +71,27 @@
         const cardHeight = 54; //mm
         var videoStreamDisplayElement;
         $(document).ready(function(){
-            let stream = navigator.mediaDevices.getUserMedia(constraints);
-            window.stream = stream;
-            videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
-            videoStreamDisplayElement.height = height;
-            videoStreamDisplayElement.width = width;
-            videoStreamDisplayElement.src = URL.createObjectURL(stream);
-            // if ('srcObject' in videoStreamDisplayElement) {
-            //     videoStreamDisplayElement.srcObject = stream;
-            // } else {
-            //     videoStreamDisplayElement.src = URL.createObjectURL(stream);
-            // }
+            
         });
         
 
         async function onOpenCVReady() {
             //Start Streaming with Camera
-            
+            let stream = navigator.mediaDevices.getUserMedia(constraints);
+            window.stream = stream;
+            videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
+            videoStreamDisplayElement.height = height;
+            videoStreamDisplayElement.width = width;
+            videoStreamDisplayElement.srcObject = stream;
+            const cv = require("./opencv.js");
+            //videoStreamDisplayElement.src = URL.createObjectURL(stream);
+            // if ('srcObject' in videoStreamDisplayElement) {
+            //     videoStreamDisplayElement.srcObject = stream;
+            // } else {
+            //     videoStreamDisplayElement.src = URL.createObjectURL(stream);
+            // }
             let vc = null;
-            //cv['onRuntimeInitialized'] = () => {
+            cv['onRuntimeInitialized'] = () => {
                 //OpenCV really ready
                 console.log("OpenCV Ready!");
                 //try{
@@ -218,7 +220,7 @@
                 //}catch(e){
                 //    document.getElementById("errorLog").innerText=e.message;
                 //}
-            //};
+            };
 
         }
     </script>
