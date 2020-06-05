@@ -68,14 +68,18 @@
         const focalLength = 3.86; //mm
         const cardWidth = 85; //mm
         const cardHeight = 54; //mm
-
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        window.stream = stream;
-        const videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
-        videoStreamDisplayElement.srcObject = stream;
-        videoStreamDisplayElement.height = height;
-        videoStreamDisplayElement.width = width;
+        let stream;
+        let videoStreamDisplay;
+        window.onload = function(){
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            window.stream = stream;
+            videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
+            videoStreamDisplayElement.srcObject = stream;
+            videoStreamDisplayElement.height = height;
+            videoStreamDisplayElement.width = width;
+        };
         
+
         async function onOpenCVReady() {
             //Start Streaming with Camera
             
