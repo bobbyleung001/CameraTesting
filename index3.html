@@ -45,7 +45,7 @@
     <canvas id="debugCanvas" class="videoDisplayClass"></canvas>  
     <div>Distance: <span id="disSpan"></span> mm</div>
     <span id="errorLog"></span>
-    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/jquery.min.js"></script> -->
     <script src="js/opencv.js" async onload="onOpenCVReady();"></script>
     <script>
         //480p
@@ -70,11 +70,7 @@
         const cardWidth = 85; //mm
         const cardHeight = 54; //mm
         var videoStreamDisplayElement;
-        $(document).ready(function(){
-            
-        });
-        
-
+       
         async function onOpenCVReady() {
             //Start Streaming with Camera
             let stream = navigator.mediaDevices.getUserMedia(constraints);
