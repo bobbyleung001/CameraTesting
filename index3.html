@@ -74,9 +74,13 @@
             let stream = navigator.mediaDevices.getUserMedia(constraints);
             window.stream = stream;
             videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
-            videoStreamDisplayElement.srcObject = stream;
             videoStreamDisplayElement.height = height;
             videoStreamDisplayElement.width = width;
+            if ('srcObject' in video) {
+                videoStreamDisplayElement.srcObject = stream;
+            } else {
+                videoStreamDisplayElement.src = URL.createObjectURL(stream);
+            }
         });
         
 
