@@ -63,7 +63,8 @@
             }
         };
         //Use mm as unit
-        const focalLength = 87.723;
+        //35mm Eq-focal length = 26
+        const focalLength = 4.8;
         const cardWidth = 85;
         const cardHeight = 54; 
         
@@ -169,7 +170,7 @@
                             }
                             let objHeight = rotatedRect.size.height;
                             //console.log(rotatedRect);
-                            //console.log(objHeight);
+                            console.log(objHeight);
                             // d = f * realH / objH                           
                             var distance = (focalLength * cardHeight)/(objHeight);
                             console.log("distance (mm): " + distance);
