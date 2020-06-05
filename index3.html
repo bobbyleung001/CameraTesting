@@ -62,6 +62,11 @@
                 width: width, height: height, frameRate: FPS, facingMode: 'environment'
             }
         };
+        //Use mm as unit
+        const focalLength = 23;
+        const cardWidth = 85;
+        const cardHeight = 54; 
+        
         async function onOpenCVReady() {
             //Start Streaming with Camera
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -150,24 +155,22 @@
                             let cX = mom.m10 / mom.m00 //center X
                             let cY = mom.m01 / mom.m00 // center Y
 
-                            //Use mm as unit
-                            const focalLength = 23;
-                            const cardWidth = 85;
-                            const cardHeight = 54;
-                            // d = f * realH / objH
-                            let distance = (focalLength * cardHeight)/(objHeight);
-
                             cv.putText(debug, area + '', new cv.Point(cX, cY), cv.FONT_HERSHEY_SIMPLEX, 1, colorRed);
                             cnt.delete();
                         }
                         if (maxCnts.size() > 0) {
                             let cnt = maxCnts.get(maxCnts.size()-1);
+ 
                             let rotatedRect = cv.minAreaRect(cnt);
                             let vertices = cv.RotatedRect.points(rotatedRect);
                             let rectangleColor = new cv.Scalar(255, 0, 0, 128);
                             for (let i = 0; i < 4; i++) {
                                 cv.line(src, vertices[i], vertices[(i + 1) % 4], rectangleColor, 2, cv.LINE_AA, 0);
                             }
+                            let objHeight = rotatedRect.height;
+                            // d = f * realH / objH                           
+                            let distance = (focalLength * cardHeight)/(objHeight);
+                            console.log("distance (mm): " + distance);
                             cv.drawContours(src, maxCnts, maxCnts.size()-1, colorRGBA, 2, 4, hierarchy, 0);
                         }
                     }
