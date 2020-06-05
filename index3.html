@@ -69,10 +69,9 @@
         const focalLength = 3.86; //mm
         const cardWidth = 85; //mm
         const cardHeight = 54; //mm
-        let stream;
-        let videoStreamDisplay;
+        var videoStreamDisplay;
         $(document).ready(function(){
-            stream = navigator.mediaDevices.getUserMedia(constraints);
+            let stream = navigator.mediaDevices.getUserMedia(constraints);
             window.stream = stream;
             videoStreamDisplayElement = document.querySelector("video#videoStreamDisplay");
             videoStreamDisplayElement.srcObject = stream;
